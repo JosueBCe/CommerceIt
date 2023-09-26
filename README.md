@@ -1,26 +1,25 @@
 # Overview
 
-{Important!  Do not say in this section that this is college assignment.  Talk about what you are trying to accomplish as a software engineer to further your learning.}
+This is a React Native mobile application, which implements CRUD operations using async storage allowing users to interact and save their data (products) in the cart and make payments requests. 
 
-{Provide a description of your software}
-
-{Describe your purpose for creating this software.}
-
-{Provide a link to your YouTube demonstration.  It should be a one minute demo of the software running and a walkthrough of the code.}
-
+## Detailed Description
+1. Home Screen: 
+    1. implementating navigation through the app with stack navigation
+2. 
+3. 
 [Software Demo Video](http://youtube.link.goes.here)
 
-# Development Environment
+## Development Environment
+* React Native (Expo) 
+* React.Js 
+* NativeWind CSS
+* React-Navigation
 
-{Describe the tools that you used to develop the software}
-
-{Describe the programming language that you used}
-
-# Useful Websites
+## Useful Websites
 
 {Make a list of websites that you found helpful in this project}
 * [Web Site Name](http://url.link.goes.here)
-* [Web Site Name](http://url.link.goes.here)
+* [Stack OverFlow Forum](https://stackoverflow.com/questions/67623952/error-virtualizedlists-should-never-be-nested-inside-plain-scrollviews-with-th)
 * [React Hooks Tutorial ](https://www.youtube.com/watch?v=HYKDUF8X3qI&ab_channel=CosdenSolutions)
 
-tutorials used: 
+tutorials I used: 
