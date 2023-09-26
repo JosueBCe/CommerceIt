@@ -41,7 +41,7 @@ This is a React Native mobile application, which implements CRUD operations usin
 2. Notification to the user when deleting a product from the cart
 3. Notification to the user when payment is made successfully
 
-[Software Demo Video](http://youtube.link.goes.here)
+[Software Demo Video](http://youtube.link.goes.here).
 [WireFrame & MockUp](https://www.figma.com/file/zHEfeiNomW9MPvgQ3QvD5R/My-App?type=design&node-id=0%3A1&mode=design&t=QAjX9pBZrmw28UFu-1)
 
 ## Development Environment
