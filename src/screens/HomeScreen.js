@@ -15,10 +15,16 @@ const HomeScreen = () => {
   const windowHeight = Dimensions.get('window').height;
 
   const imageHeight = windowHeight * 0.7;
-
+  const removeData = async () => {
+    try {
+      const savedUser = await AsyncStorage.clear();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
 
-    <ScrollView style={{ backgroundColor: "white"}} >
+    <ScrollView >
 
       <View
         style={{ height: imageHeight }}>
