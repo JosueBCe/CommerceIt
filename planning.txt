@@ -1,0 +1,30 @@
+- Navigation: https://www.youtube.com/watch?v=PmILHVEWZUY&ab_channel=CodewithBetoenEspa%C3%B1ol
+
+- Layout and style
+    - hero with the categories carousel 
+    - API call array of 4 images that will adapt to my backend 
+    - CRUD in local storage: 
+        Add to cart, 
+        remove from cart, 
+        add 1 more of the specified with "+" button, 
+        sum the total of the number of items
+        false pay display green the whole screen 
+    - language by location 
+    - 
+    SOLVE ONCE, RUN EVERYWHERE THE SEARCH SECTION AND LIST
+    - search and products
+    - filter products: price, top performing 
+    - add option filters to the search component to make useful for the products screen
+   
+
+    
+- state management 
+
+- (CRUD in DB if the time is enough)
+- add animations and transitions effects after general Layout 
+- comment and document the program how works 
+
+- add consistency in style only using style of native and delete unused styles while documment and adding comments 
+
+idea: 
+- add crossed carousel horizontal scrolling: https://blog.logrocket.com/implement-react-native-snap-carousel/
