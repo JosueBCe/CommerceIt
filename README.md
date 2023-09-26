@@ -6,37 +6,37 @@ This is a React Native mobile application, which implements CRUD operations usin
 
 ### Screens and Implementations
 
-1. Home Screen Implementations: 
+#### Home Screen Implementations: 
     1. Navigation through the app with stack navigation
     2. List of products searchable by title or product description 
     3. Grid of products photos
     4. Button to add product to the cart
     5. Button to view the product in the Single Product Screen 
 
-2. Products Screen: 
+#### Products Screen: 
     1. Hero image with adapted background to adjust to the user screen size 
     2. Filterable list of products, matching products by category, price range and from cheaper price to higher 
 
-3. Cart Screen: 
+#### Cart Screen: 
     1. Hero image background adapted to adjust to the user screen size 
     2. List of items addeed to the cart. 
     3. Asynchronous methods for adding, updating, and deleting items in the cart list using Async Storage.
 
 ### Styling: 
 
-4. NativeWind
+#### NativeWind
     1. Adaptable layout 
     2. Minimalist 
     3. Respect of white spaces and hierarchy of font texts 
 
-5. React Native StyleSheet  
+#### React Native StyleSheet  
     1. Complementary sytles
     2. Consistency in design and color choice 
     3. IOS and Android styles support 
 
 ### More features: 
 
-6. Toast messages
+#### Toast messages
     1. Notification to the user when adding a new product to the cart
     2. Notification to the user when deleting a product from the cart
     3. Notification to the user when payment is made successfully
