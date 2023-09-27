@@ -13,7 +13,8 @@ const SearchSection = ({sectionTitle, scrollViewRef, height}) => {
     */
 
     /* 
-    * States that will be used throughout the component and its children 
+    * States that will be used throughout the component and its children
+    * to update the list of products filterable by title and description 
     */
     const [searchPhrase, setSearchPhrase] = useState("");
     const [clicked, setClicked] = useState(false);

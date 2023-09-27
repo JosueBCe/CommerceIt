@@ -63,22 +63,3 @@ const ImagesGrid = () => {
 
 export default ImagesGrid;
 
-
-
-/* NOTES: 
-
-- use context to pass to the hero, carousel and search 
-- pass context data to the single product screen  
-
-
-- benefits: 
-    - one api call for the whole experience
-    - unified data 
-    - CRUD methods with local storage too for the cart 
-    - learning this important concept that will be huge 
-
-
-    cart work with local storage to handle but listening the state 
-
-
-*/

@@ -9,7 +9,6 @@ const ProductScreen = () => {
   /**  
    * Product Screen component: it displays a list of products available with a search bar.
    * Each product in the Search Section list has 2 buttons to access to its own single page or add it to the cart.
-   * Styles are located at the bottom when the component finishes
   */
 
   /* 
@@ -46,4 +45,3 @@ const ProductScreen = () => {
 
 export default ProductScreen
 
-const styles = StyleSheet.create({})

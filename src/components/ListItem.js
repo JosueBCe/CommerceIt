@@ -10,8 +10,8 @@ import Toast from 'react-native-toast-message';
 const ListItem = (props) => {
     /* 
     * List Item component: it recieves the information to display a product from the list (parent component)
-    * It includes the "add to cart" button and "view" to direct the user to the single product page based on the product id 
-    * passed to the navigator ("nav" variable).
+    * It includes the "add to cart" button and "view" to direct the user to the single product page based 
+    * on the product id passed to the navigator ("nav" variable).
     * Styles are located at the bottom, when the component finishes
     */
 

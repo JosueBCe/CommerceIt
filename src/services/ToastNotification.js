@@ -1,9 +1,12 @@
 
 import Toast from 'react-native-toast-message';
 
-// Function that implements the toast feature
-// It will be applied through the app to notify the user
-// about results of the actions taken  
+/* 
+* Toast component: it implements the toast feature
+* It will be applied through the app to notify the user
+* about results of the actions taken 
+* (successful payment, add new product or delete product from the cart)  
+*/
 
 export const showToast = (messageTitle, messageDescription, type = "success") => {
     Toast.show({
@@ -14,11 +17,3 @@ export const showToast = (messageTitle, messageDescription, type = "success") =>
     });
 }
 
-
-
-/* customize toast style 
-
-continue with section of list 
-
-add comments and read me and that's all for now.  
-*/
