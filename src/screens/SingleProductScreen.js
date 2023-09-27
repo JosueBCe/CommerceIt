@@ -4,92 +4,126 @@ import { ProductsContext } from './ProductsContext';
 import { ScrollView } from 'react-native';
 import { addToCart } from '../services/CrudStorage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const SingleProductScreen = ({ route }) => {
-/* 
-here add single product
+import { showToast } from '../services/ToastNotification';
 
-*/
-const removeData = async () => {
-    try {
-      const savedUser = await AsyncStorage.clear();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+const SingleProductScreen = ({ route }) => {
+    /** 
+    * Single Product Screen that displays the product and its details
+    * Styles are located at the bottom when the component finishes
+    */
+
+    /* 
+    * Use the context created for the products and get the 
+    * specified product indicated in the route 
+    */
     const { products } = useContext(ProductsContext);
     const { productId } = route.params
     const product = products[productId - 1]
+
     return (
-        <><ScrollView>
-            <View className="mx-2 my-4 rounded-2xl align-middle" style={styles.productContainer}>
-                <View className="flex-shrink">
-                    <Text style={styles.category}>
-                        {product.category.length > 5 ? product.category.substring(0, 7) + "..." : product.category}
-                    </Text>
-                    <Text className="text-xl font-bold">
-                        {product.title}
-                    </Text>
-                </View>
-                <Image source={{ uri: product.images[2] ? product.images[2] : product.thumbnail }} style={styles.image} />
-                <View className="ml-5">
-                    <Text className="text-xl font-bold">
-                        Overview
-                    </Text>
-                    <Text className="text-sm text-gray-500 mt-1 truncate">
-                        {product.description}
-                    </Text>
-                    <View style={styles.price}>
-
-                        <View className="">
-                            <Text className="text-xl font-bold text-gray-500 mb-2">
-                                Details
-                            </Text>
-                            <View style={styles.container}>
-                                <Text style={styles.listItem}>⭐ {product.rating}</Text>
-                                <Text style={styles.listItem}>🛍️ {product.brand.length > 10 ? product.brand.substring(0, 10) + "\n" + product.brand.substring(10, product.brand.length) : product.brand}</Text>
-
-                                <Text style={styles.listItem}>📦 {product.stock}</Text>
-
-                            </View>
-                        </View>
-                        <View className="flex items-end">
-                            <Text className=" text-gray-600 line-through  text-xs mt-5">
-                                ${(product.price + product.discountPercentage / 100 * product.price).toFixed(2)}
-                            </Text>
-                            <Text className=" text-2xl pr-5 mb-5 m">
-                                ${product.price}
-                            </Text>
-
-                            <View className=" flex mt-2">
-                                <View style={styles.buttonContainer}>
-
-                                    <TouchableOpacity style={styles.addToCartButton}
-                                      onPress={() => addToCart(product)}
-                                    >
-                                        <Text style={styles.buttonText}>Add To Cart</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
+        <>
+            <ScrollView>
+                <View style={styles.productContainer}>
+                    <View style={{ flexShrink: 1 }}>
+                        <Text style={styles.category}>
+                            {product.category}
+                        </Text>
+                        <Text style={styles.heading}>
+                            {product.title}
+                        </Text>
                     </View>
 
-                </View>
+                    {/* Displays the thumbnail image if the third image 
+                    of the object doesn't exist */}
+                    <Image
+                        source={{
+                            uri: product.images[2] ?
+                                product.images[2] :
+                                product.thumbnail
+                        }}
+                        style={styles.image} />
 
-            </View>
-        </ScrollView>
+                    <View style={{ marginLeft: 10 }}>
+
+                        <Text style={styles.heading}>
+                            Overview
+                        </Text>
+                        
+                        <Text style={styles.category}>
+                            {product.description}
+                        </Text>
+
+                        <View style={styles.price}>
+                            <View>
+                                <Text style={styles.heading}>
+                                    Details
+                                </Text>
+                                <View style={styles.container}>
+                                    <Text style={styles.listItem}>
+                                        ⭐ {product.rating}
+                                    </Text>
+                                    {/* Split up the brand name if the string it's longer than 10 characters */}
+                                    <Text style={styles.listItem}>
+                                        🛍️ {product.brand.length > 10 ?
+                                            product.brand.substring(0, 10) + "\n" +
+                                            product.brand.substring(10, product.brand.length) :
+                                            product.brand}
+                                    </Text>
+                                    <Text style={styles.listItem}>
+                                        📦 {product.stock}
+                                    </Text>
+                                </View>
+                            </View>
+
+                            <View style={{ display: "flex", alignItems: "flex-end" }}>
+                                {/* Calculates the original price without discount */}
+                                <Text style={{ color: "gray", textDecorationLine: "line-through" }}>
+                                    ${(product.price + product.discountPercentage / 100 * product.price).toFixed(2)}
+                                </Text>
+                                {/* Displays the price with discount included */}
+                                <Text style={{ marginBottom: 20, fontSize: 20, paddingRight: 15 }}>
+                                    ${product.price}
+                                </Text>
+                                {/* OnClick saves the product in the Async Storage of the app 
+                                to display in the cart screen */}
+                                <View style={{ display: "flex", marginTop: 2 }}>
+                                    <View style={styles.buttonContainer}>
+                                        <TouchableOpacity
+                                            style={styles.addToCartButton}
+                                            onPress={() => {
+                                                addToCart(product);
+                                                showToast(`${product.title}`, "It was added to the cart successfully");
+                                            }}
+                                        >
+                                            <Text style={styles.buttonText}>
+                                                Add To Cart
+                                            </Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+                            
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
         </>
     )
 }
 
 export default SingleProductScreen
-
+/* 
+* Style by their containers and children 
+*/
 const styles = StyleSheet.create({
     productContainer: {
         backgroundColor: 'white',
-        borderRadius: 8,
-
+        marginHorizontal: 15,
+        marginVertical: 15,
+        borderRadius: 10,
+        varticalAlign: "center",
         padding: 20,
-
     },
 
     buttonContainer: {
@@ -109,7 +143,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     addToCartButton: {
-        backgroundColor: "#1E1E1E",
+        backgroundColor: "#DD6142",
         borderRadius: 20,
         paddingVertical: 10,
         paddingHorizontal: 10,
@@ -133,7 +167,8 @@ const styles = StyleSheet.create({
     },
     category: {
         color: "gray",
-        fontSize: 16
+        fontSize: 14,
+        marginVertical: 3
     },
     container: {
         marginLeft: 10,
@@ -146,8 +181,7 @@ const styles = StyleSheet.create({
         color: "#1E1E1E",
 
 
-    }
-    ,
+    },
     price: {
         display: "flex",
         flexDirection: "row",
@@ -157,7 +191,9 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     },
     heading: {
-
+        fontSize: 20,
+        lineHeight: 24,
+        fontWeight: '700'
     }
 })
 

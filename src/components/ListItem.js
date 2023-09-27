@@ -8,24 +8,38 @@ import { showToast } from '../services/ToastNotification';
 import Toast from 'react-native-toast-message';
 
 const ListItem = (props) => {
+    /* 
+    * List Item component: it recieves the information to display a product from the list (parent component)
+    * It includes the "add to cart" button and "view" to direct the user to the single product page based on the product id 
+    * passed to the navigator ("nav" variable).
+    * Styles are located at the bottom, when the component finishes
+    */
+
     const nav = useNavigation();
-    /* here crud storage */
+
     return (
         <>
-            <View className="flex flex-row mx-2 my-2 rounded-2xl align-middle" style={styles.productContainer}>
-                <Image source={{ uri: props.item.images[2] ? props.item.images[2] : props.item.thumbnail }} style={styles.image} className="rounded-md" />
-                <View className="ml-5 flex-shrink">
-                    <Text className="text-xl font-bold">
+            <View style={styles.productContainer}>
+
+                <TouchableOpacity
+                  onPress={() => 
+                    nav.navigate("SingleProductScreen", { productId: props.item.id })}>
+                    <Image source={{ uri: props.item.images[2] ? props.item.images[2] : props.item.thumbnail }} style={styles.image} />
+                </TouchableOpacity>
+
+                <View style={{ marginLeft: 20, flexShrink: 1 }}>
+                    <Text style={styles.titleText}>
                         {props.item.title}
                     </Text>
-                    <Text className="text-sm text-gray-500 mt-1 truncate">
+                    <Text  style={{ fontSize: 14, color: "gray", overflow: "hidden" }}>
                         {props.item.description}
                     </Text>
-                    <View className="mt-4">
+                    
+                    <View style={{marginTop: 20}}>
                         <View style={styles.buttonContainer}>
+
                             <TouchableOpacity style={styles.button}
-                                onPress={() => nav.navigate("SingleProductScreen", { productId: props.item.id })}
-                            >
+                                onPress={() => nav.navigate("SingleProductScreen", { productId: props.item.id })}>
                                 <Text style={styles.buttonText}>View</Text>
                             </TouchableOpacity>
 
@@ -34,11 +48,12 @@ const ListItem = (props) => {
                                 onPress={() => {
                                     addToCart(props.item);
                                     showToast(`${props.item.title}`, "It was added to the cart successfully");
-                                }}
-                            >
+                                }}>
                                 <Text style={styles.buttonText}>Add To Cart</Text>
                             </TouchableOpacity>
+
                         </View>
+
                     </View>
                 </View>
 
@@ -54,8 +69,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 8,
         alignItems: 'center',
-        padding: 20,
-
+        padding: 15,
+        display: "flex",
+        flexDirection: "row",
+        margin: 8,
+        borderRadius: 16,
+        alignItems: "center"
     },
 
     buttonContainer: {
@@ -66,7 +85,7 @@ const styles = StyleSheet.create({
 
     },
     button: {
-        backgroundColor: "#19253d",
+        backgroundColor: "#1E1E1E",
         borderRadius: 20,
         paddingVertical: 10,
         paddingHorizontal: 10,
@@ -75,7 +94,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     addToCartButton: {
-        backgroundColor: "#ffc569",
+        backgroundColor: "#DD6142",
         borderRadius: 20,
         paddingVertical: 10,
         paddingHorizontal: 10,
@@ -89,10 +108,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
+    titleText: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        textAlign: 'left',
+    
+    },
     image: {
         height: 175,
         width: 100,
-
+        borderRadius: 6, 
         resizeMode: "contain"
     }
 })

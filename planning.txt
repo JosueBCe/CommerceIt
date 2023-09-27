@@ -1,3 +1,15 @@
+
+ - Comment everything: 
+    - improve comments version 
+    - readme app structure 
+    app 
+        --HomeScreen
+        --ProductSreen STAFFF 
+         
+         
+ - ORDER tasks and continue
+
+
 - Navigation: https://www.youtube.com/watch?v=PmILHVEWZUY&ab_channel=CodewithBetoenEspa%C3%B1ol
 
 - Layout and style

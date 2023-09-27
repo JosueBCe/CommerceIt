@@ -2,23 +2,34 @@ import React from "react";
 import { Button, Image } from "react-native";
 import { StyleSheet, Text, View, FlatList, SafeAreaView, TouchableOpacity } from "react-native";
 import ListItem from "./ListItem";
-// definition of the Item, which will be rendered in the FlatList
 
 
-// the filter
+
 const List = (props) => {
+    /* 
+    * List component that works with the search bar component to display
+    * the list of products that match with the user's search phrase     
+    */
 
     const renderItem = ({ item }) => {
-        // when no input, show all
-    
+    /* 
+    * This function is in charge of filtering the items that will be displayed 
+    * by the title and description. 
+    */
+
+        /* 
+        * With no input search phrase, display the complete list of products 
+        */
         if (props.searchPhrase === "") {
+            /*   
+            * The ListItem component is a component that will display 
+            * each product in detail (price, title, description, etc.) 
+            */
             return <ListItem item={item} />
         }
-        // filter of the name
         if (item.title.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
             return <ListItem item={item} />
         }
-        // filter of the description
         if (item.description.toUpperCase().includes(props.searchPhrase.toUpperCase().trim().replace(/\s/g, ""))) {
             return <ListItem item={item} />
         }
@@ -31,18 +42,17 @@ const List = (props) => {
                     props.setClicked(false);
                 }}
             >
-            <FlatList
-                  nestedScrollEnabled={true}
-                  scrollEnabled={false}
+            {/* 
+            * It displays the filtered list by the searchPhrase passed in the 
+            * properties
+            */}
+                <FlatList
+                    nestedScrollEnabled={true}
+                    scrollEnabled={false}
                     data={props.data}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id}
-                 
-                /> 
-            {/*     {props.data.map((element) => (
-          <React.Fragment key={element.id}>{renderItem({ item: element })}</React.Fragment> 
-        ))}*/}
-
+                />
 
             </View>
         </SafeAreaView>

@@ -4,8 +4,17 @@ import { Feather, Entypo } from "@expo/vector-icons";
 
 
 const SearchBar = (props) => {
+  /**
+   * Search bar component: it displays a search text input with 
+   * a cancel and a "x" to stop search. 
+   * It also collaborates by updating the search phrase that will indicate 
+   * to its sibling component (List) which products must be displayed.
+   */
+
+
   return (
     <View style={styles.container}>
+
       <View
         style={
           !props.clicked
@@ -13,33 +22,46 @@ const SearchBar = (props) => {
             : styles.searchBar__clicked
         }
       >
+        {/* ICON */}
         <Feather
           name="search"
           size={20}
           color="black"
           style={{ marginLeft: 1 }}
         />
+
+        {/* 
+        * Gets the user input.
+        * Updates the search phrase. 
+        * Updates the clicked variable that works to change the layout
+        * depending on the state.
+        */}
         <TextInput
           style={styles.input}
           placeholder="Search"
           value={props.searchPhrase}
           onChangeText={props.setSearchPhrase}
+
           onFocus={() => {
             props.setClicked(true);
           }}
+
         />
-        
+
+        {/* Displays cross icon if clicked state equals true */}
         {props.clicked && (
           <Entypo name="cross" size={20} color="black" style={{ padding: 1 }} onPress={() => {
-              props.setSearchPhrase("")
-          }}/>
+            props.setSearchPhrase("")
+          }} />
         )}
       </View>
+     
+      {/* Displays the "cancel" button if clicked state equals true */}
       {props.clicked && (
         <View>
           <Button
             title="Cancel"
-            
+
             onPress={() => {
               Keyboard.dismiss();
               props.setClicked(false);
@@ -64,7 +86,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     width: "90%",
-    
+
   },
   searchBar__unclicked: {
     padding: 10,

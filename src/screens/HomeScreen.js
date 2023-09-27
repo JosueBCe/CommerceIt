@@ -1,110 +1,89 @@
 import { Image, SafeAreaView, StyleSheet, Text, View, Dimensions, ImageBackground } from 'react-native'
-import React from 'react'
+import React, { useRef } from 'react'
 import hero from "../../assets/images/hero.jpg"
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { useNavigation } from '@react-navigation/native'
-import Grid from '../components/Carousel'
+import ImagesGrid from '../components/ImagesGrid'
 import { ScrollView } from 'react-native'
 import SearchSection from '../components/SearchSection'
 import { styles as style } from '../services/CrudStorage'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = () => {
-  const nav = useNavigation();
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
+  /** 
+  * Home screen component that displays a hero image, a grid of featured products (randomly selected)
+  * and a search section component that allows the user to search by product title and description   
+  */
 
-  const imageHeight = windowHeight * 0.7;
-  const removeData = async () => {
-    try {
-      const savedUser = await AsyncStorage.clear();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  /* 
+  * Get the windows dimension to determine image height
+  */
+  const windowHeight = Dimensions.get('window').height;
+  const imageHeight = windowHeight * 0.5;
+
+  /* 
+  * Create a ref of the scrollview properties  
+  */
+  const scrollViewRef = React.createRef()
+
+
   return (
 
-    <ScrollView >
+    <ScrollView ref={scrollViewRef}>
 
-      <View
-        style={{ height: imageHeight }}>
+      <View style={{ height: imageHeight }}>
         <ImageBackground
           source={hero}
           className="flex-1 resize"
+          style={styles.hero}
         />
-        <Text
-          className="absolute top-8 text-white  text-5xl ">
-          Hello World!
+        <Text style={styles.heroText}>
+          Welcome
         </Text>
       </View>
-      <View style={style.buttonContainer}>
 
-        <TouchableOpacity style={style.addToCartButton}
-          onPress={() => removeData()}
-        >
-          <Text style={style.buttonText}>Clear data</Text>
-        </TouchableOpacity>
-      </View>
       <View style={styles.grid}>
-        <Text
-          className=" text-2xl m-5 text-center"
-        >
-          Categories
+        <Text style={{ fontSize: 24, margin: 20, textAlign: 'center' }}>
+          Featured Products
         </Text>
-        <Grid />
+        <ImagesGrid />
+      
       </View>
 
-      <SearchSection />
-
-
-
+      {/* 
+      * Calls the search section component with: 
+      * the title, the scrollview ref and the necessary 
+      * amount of pixels to be scrolled down when the user clicks
+      * on the search bar 
+      */}
+      <SearchSection
+        sectionTitle={"Find your Dream Product"}
+        scrollViewRef={scrollViewRef}
+        height={1220}
+      />
+      
     </ScrollView>
-
-
-
-
-
-
-
-
-
-
-
-
   )
 }
 
 export default HomeScreen
 
 const styles = StyleSheet.create({
+  heroText:
+  {
+    position: "absolute",
+    left: 20,
+    top: 56,
+    color: "white",
+    fontSize: 48
+  }
+  ,
   grid: {
-    marginTop: 40,
+    marginTop: 10,
     display: "grid",
     gridColumns: 2,
     gridRows: 2
   }
+
+
 })
-
-{/* 
-      <View>
-        <TouchableOpacity
-          onPress={() => nav.navigate("Product")}
-          style={{
-            padding: 10,
-            backgroundColor: "blue",
-            width: 100,
-            borderRadius: 10
-          }}>
-          <Text
-         
-            style={{
-              color: "white"
-            }}
-          >
-            Open Stack
-          </Text>
-        </TouchableOpacity>
-
-      </View>
- */}
-

@@ -10,11 +10,19 @@ import { Entypo } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import 'react-native-gesture-handler';
 import SingleProductScreen from '../screens/SingleProductScreen';
-
+import { StyleSheet } from 'react-native';
 
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
+const styles = StyleSheet.create({
+    tabBar: {
+        height: 55,
+        paddingTop: 6,
+        paddingBottom: 6
+    }
+}
+)
 
 function Stack() {
     return (
@@ -54,7 +62,7 @@ function Tabs() {
         <Tab.Navigator
             initialRouteName='Home'
             screenOptions={{
-                tabBarActiveTintColor: "blue",
+                tabBarActiveTintColor: "#DD6142",
 
             }}>
 
@@ -66,7 +74,9 @@ function Tabs() {
                     tabBarIcon: ({ color, size }) => (
                         <Ionicons name="md-home-outline" size={size} color={color} />
                     ),
-                    headerShown: false
+                    headerShown: false,
+                    tabBarStyle: styles.tabBar
+
 
                 }}>
             </Tab.Screen>
@@ -78,7 +88,8 @@ function Tabs() {
                     tabBarIcon: ({ color, size }) => (
 
                         <Entypo name="shopping-bag" size={size} color={color} />
-                    )
+                    ),
+                    tabBarStyle: styles.tabBar
 
                 }}>
 
@@ -90,7 +101,8 @@ function Tabs() {
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Feather name="shopping-cart" size={size} color={color} />
-                    )
+                    ),
+                    tabBarStyle: styles.tabBar
 
                 }}
             >

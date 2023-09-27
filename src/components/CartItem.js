@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Image } from "react-native";
 import React from 'react'
 import { useNavigation } from '@react-navigation/native';
-import SingleProductScreen from '../screens/SingleProductScreen';
 import { addToCart, deleteProduct } from '../services/CrudStorage';
 import { showToast } from '../services/ToastNotification';
 import Toast from 'react-native-toast-message';
@@ -11,44 +10,67 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const CartItem = ({ item }) => {
-  const nav = useNavigation();
-  /* here crud storage */
+  /* 
+  * Cart item component: it displays the product details, it also includes 2 buttons to
+  * increase the quantity of products added to the cart. 
+  * Styles are located at the bottom, when the component finishes
+  */
 
+  const nav = useNavigation();
 
   return (
     <>
-      <View className="flex flex-row mx-2 my-2 rounded-2xl align-middle" style={styles.productContainer}>
+      <View style={styles.productContainer}>
+
+        {/* When touches in the image, navigates to the product's image single page */}
         <TouchableOpacity onPress={() => nav.navigate("SingleProductScreen", { productId: item.id })}>
           <Image
             source={{ uri: item.images[2] ? item.images[2] : item.thumbnail }}
             style={styles.image}
-            className="rounded-md"
           />
         </TouchableOpacity>
-        <View className="ml-5 flex-shrink">
+
+        <View style={{ marginLeft: 20, flexShrink: 1 }}>
+
           <View style={styles.topText}>
+
             <View style={styles.titleContainer}>
               <Text style={styles.titleText}>
                 {item.title}
               </Text>
             </View>
+
+            {/* 
+            * When the user presses the gargabe icon, it deletes the product from the async storage variable
+            * (if the quantity is greater than 0, it rests the value from the total quantity by 1)
+            */}
             <View style={styles.iconContainer}>
-              <MaterialCommunityIcons name="delete-outline" size={24} color="#DD6142" onPress={() => deleteProduct(item)} />
+              <MaterialCommunityIcons
+                name="delete-outline"
+                size={24} color="#DD6142"
+                onPress={() => {
+                  deleteProduct(item)
+                  showToast(`${item.title}`, "It was removed from the cart", "error");
+                }}/>
             </View>
           </View>
-          <Text className="text-sm text-gray-500 truncate item" >
+
+          <Text style={{ fontSize: 14, color: "gray", overflow: "hidden" }}>
             {`${item.category} \n${item.brand}`}
           </Text>
-          <View className="mt-4">
-
+          
+          <View style={{ marginTop: 16 }}>
             <View style={styles.buttonContainer}>
               <View>
-
                 <Text style={styles.textItem}>
                   ${item.price}
                 </Text>
               </View>
 
+            {/* 
+            * When the user presses the "Minus" button, it deletes the product from the async storage variable
+            * (if the quantity is greater than 0, it rests the value from the total quantity by 1)
+            */}
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
@@ -59,18 +81,22 @@ const CartItem = ({ item }) => {
                 <Text style={styles.text}>-</Text>
               </TouchableOpacity>
               <View >
-                <Text style={styles.textQuantity}> 
-                {Number(item.quantity) < 10 ? `0${item.quantity}` : item.quantity}
+                <Text style={styles.textQuantity}>
+                  {Number(item.quantity) < 10 ? `0${item.quantity}` : item.quantity}
                 </Text>
-
               </View>
+
+              {/* 
+                * When the users presses on the "button", it adds by 1 the quantity of the specified item
+                * to the total of items  
+                * It also displays a toast message indicating to the user that the product has been successfully added
+              */}
               <TouchableOpacity
                 style={styles.addToCartButton}
                 onPress={() => {
                   addToCart(item);
                   showToast(`${item.title}`, "It was added to the cart successfully");
-                }}
-              >
+                }}>
                 <Text style={styles.text}>+</Text>
               </TouchableOpacity>
 
@@ -91,7 +117,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     padding: 15,
-
+    display: "flex",
+    flexDirection: "row",
+    margin: 8,
+    borderRadius: 16,
+    alignItems: "center"
   },
 
   buttonContainer: {
@@ -132,7 +162,7 @@ const styles = StyleSheet.create({
   image: {
     height: 120,
     width: 100,
-
+    borderRadius: 6,
     resizeMode: "contain"
   }
   ,
