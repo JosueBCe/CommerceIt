@@ -32,15 +32,13 @@ The purpose of this application is to strengthening my abilities to developer fu
 
 ### Styling: 
 
-#### NativeWind
-* Adaptable layout 
-* Minimalist 
-* Respect of white spaces and hierarchy of font texts 
-
 #### React Native StyleSheet  
 * Complementary sytles
 * Consistency in design and color choice 
 * IOS and Android styles support 
+* Adaptable layout 
+* Minimalist 
+* Respect of white spaces and hierarchy of font texts 
 
 ### More features: 
 
@@ -54,8 +52,6 @@ The purpose of this application is to strengthening my abilities to developer fu
 
 * React Native (Expo) 
 * React.Js 
-* NativeWind CSS
-* Tailwind
 * React-Navigation
 * React Native Async Storage 
 * Code editor: VS Code
