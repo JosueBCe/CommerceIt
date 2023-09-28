@@ -1,8 +1,8 @@
 # Overview
 
-This is a React Native mobile application, which implements CRUD operations using async storage allowing users to interact and save their data (products) in the cart and make payments requests. 
+This is a React Native mobile application, which implements CRUD operations using async storage allowing users to interact and save their data (products) in the cart and make payment requests. 
 
-The purpose of this application is to strengthening my abilities to developer full stack react applications, implementing intially the mobile version. Then scaling to more complex versions integrating the frontend, backend and cloud database. 
+The purpose of this application is to strengthen my abilities to develop full-stack react applications, implementing initially the mobile version. Then scaling to more complex versions integrating the frontend, backend, and cloud database. 
 
 
 
@@ -18,27 +18,27 @@ The purpose of this application is to strengthening my abilities to developer fu
 - Navigation through the app with stack navigation
 * List of products searchable by title or product description 
 * Grid of products photos
-* Button to add product to the cart
+* Button to add the product to the cart
 * Button to view the product in the Single Product Screen 
 
 #### Products Screen: 
-* Hero image with adapted background to adjust to the user screen size 
-* Filterable list of products, matching products by category, price range and from cheaper price to higher 
+* Hero image with adapted background to adjust to the user's screen size 
+* Filterable list of products, matching products by category, price range, and from cheaper price to higher 
 
 #### Cart Screen: 
-* Hero image background adapted to adjust to the user screen size 
-* List of items addeed to the cart. 
+* Hero image background adapted to adjust to the user's screen size 
+* List of items added to the cart. 
 * Asynchronous methods for adding, updating, and deleting items in the cart list using Async Storage.
 
 ### Styling: 
 
 #### React Native StyleSheet  
-* Complementary sytles
+* Complementary styles
 * Consistency in design and color choice 
 * IOS and Android styles support 
 * Adaptable layout 
 * Minimalist 
-* Respect of white spaces and hierarchy of font texts 
+* Respect for white spaces and hierarchy of font texts 
 
 ### More features: 
 
@@ -73,11 +73,11 @@ The purpose of this application is to strengthening my abilities to developer fu
 
 
 ## Future Work
-* Improve performance implementing hooks like useMemo and useReducer to handle the state of the data
+* Improve performance by implementing hooks like useMemo and useReducer to handle the state of the data
 * Create and connect to a Cloud Database 
 * Add the functionality to perform CRUD operations with products
-* Add the functionality to switch the currency which products are priced
+* Add the functionality to switch the currency in which products are priced
 * Add functionality to set the app language by location
 * Handle the case of creating a new product, updating image and location
 * Add user authentication functionality 
-* Deploy first version 
+* Deploy the first version 
