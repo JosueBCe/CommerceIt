@@ -12,43 +12,39 @@ import 'react-native-gesture-handler';
 import SingleProductScreen from '../screens/SingleProductScreen';
 import { StyleSheet } from 'react-native';
 
-
 const Tab = createBottomTabNavigator();
 const HomeStack = createStackNavigator();
-const styles = StyleSheet.create({
-    tabBar: {
-        height: 55,
-        paddingTop: 6,
-        paddingBottom: 6
-    }
-}
-)
+
+/* 
+* Creates 2 ways to navigate throughout the app, 
+* by stack (directing to a "route" from any component that can handle an event, for exmaple onPress() => navigate to somewhere)
+* and by bottom navigation, that displays a sticky nav menu with the screens (Home, Products, Cart) at the bottom of the screen
+*/
 
 function Stack() {
+    /* 
+    * Stack approach to make possible the navigation event handler for any component that can handle an event.
+    */
+
     return (
         <HomeStack.Navigator>
 
             <HomeStack.Screen
                 initialRouteName="HomeScreen"
                 name='HomeScreen'
-                component={HomeScreen}
-            />
+                component={HomeScreen} />
 
             <HomeStack.Screen
                 name='ProductScreen'
-                component={ProductScreen}
-            />
+                component={ProductScreen} />
 
             <HomeStack.Screen
                 name='CartScreen'
-                component={CartScreen}
-
-            />
+                component={CartScreen} />
 
             <HomeStack.Screen
                 name='SingleProductScreen'
-                component={SingleProductScreen}
-            />
+                component={SingleProductScreen} />
 
         </HomeStack.Navigator>
 
@@ -58,12 +54,14 @@ function Stack() {
 
 
 function Tabs() {
+    /* 
+    * Tabs to be displayed on the sticky bottom nav menu with the established sceens 
+    */
     return (
         <Tab.Navigator
             initialRouteName='Home'
             screenOptions={{
-                tabBarActiveTintColor: "#DD6142",
-
+                tabBarActiveTintColor: "#DD6142"
             }}>
 
             <Tab.Screen
@@ -72,12 +70,12 @@ function Tabs() {
                 options={{
                     tabBarLabel: "Feed",
                     tabBarIcon: ({ color, size }) => (
-                        <Ionicons name="md-home-outline" size={size} color={color} />
-                    ),
+                        <Ionicons name="md-home-outline" size={size} color={color} />),
                     headerShown: false,
+                    /* 
+                    * It hiddes the tab header at the top, just leaving the stack header 
+                    */
                     tabBarStyle: styles.tabBar
-
-
                 }}>
             </Tab.Screen>
 
@@ -87,12 +85,9 @@ function Tabs() {
                     tabBarLabel: "Products",
                     tabBarIcon: ({ color, size }) => (
 
-                        <Entypo name="shopping-bag" size={size} color={color} />
-                    ),
+                        <Entypo name="shopping-bag" size={size} color={color} />),
                     tabBarStyle: styles.tabBar
-
                 }}>
-
             </Tab.Screen>
 
             <Tab.Screen
@@ -100,12 +95,9 @@ function Tabs() {
                 component={CartScreen}
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <Feather name="shopping-cart" size={size} color={color} />
-                    ),
+                        <Feather name="shopping-cart" size={size} color={color} />),
                     tabBarStyle: styles.tabBar
-
-                }}
-            >
+                }}>
             </Tab.Screen>
 
         </Tab.Navigator>
@@ -114,9 +106,21 @@ function Tabs() {
 
 
 export default function Navigation() {
+    /* 
+    * Sets the navigation container with the specified tabs 
+    */
     return (
         <NavigationContainer>
             <Tabs />
         </NavigationContainer>
     )
 }
+
+const styles = StyleSheet.create({
+    tabBar: {
+        height: 55,
+        paddingTop: 6,
+        paddingBottom: 6
+    }
+}
+)
