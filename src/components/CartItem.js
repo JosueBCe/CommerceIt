@@ -67,10 +67,10 @@ const CartItem = ({ item }) => {
                 </Text>
               </View>
 
-            {/* 
-            * When the user presses the "Minus" button, it deletes the product from the async storage variable
-            * (if the quantity is greater than 0, it rests the value from the total quantity by 1)
-            */}
+              {/* 
+              * When the user presses the "Minus" button, it deletes the product from the async storage variable
+              * (if the quantity is greater than 0, it rests the value from the total quantity by 1)
+              */}
               <TouchableOpacity
                 style={styles.button}
                 onPress={() => {
