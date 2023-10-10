@@ -28,7 +28,7 @@ public class Product
 
 
     [DynamoDBProperty("stock")]
-    public string? Stock { get; set; }
+    public decimal? Stock { get; set; }
 
     [DynamoDBProperty("brand")]
     public string? Brand {  get; set; }    
