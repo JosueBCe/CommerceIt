@@ -6,6 +6,7 @@ namespace Backend.Controllers;
 [ApiController]
 public class ErrorController : ControllerBase
 {
+    [HttpGet]
     [Route("/error")]
     public IActionResult HandleErrorDevelopment(
         [FromServices] IHostEnvironment hostEnvironment)

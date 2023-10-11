@@ -66,9 +66,9 @@ builder.Host.ConfigureServices((hostContext, services) =>
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateAudience = true,
-                ValidAudience = audience,
                 ValidateIssuerSigningKey = true,
-                ValidIssuer = $"{builder.Configuration["AUTH0_DOMAIN"]}"
+                //ValidAudience = audience,
+                //ValidIssuer = $"{builder.Configuration["AUTH0_DOMAIN"]}"
             };   
              
              
