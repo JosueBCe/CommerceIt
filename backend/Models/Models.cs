@@ -1,4 +1,4 @@
-﻿namespace App.Models;
+﻿namespace Backend.Models;
 
 public class Message
 {

@@ -1,9 +1,9 @@
-using App.Models;
-using App.Services;
+using Backend.Models;
+using Backend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace App.Controllers;
+namespace Backend.Controllers;
 
 [ApiController]
 [Route("api/messages")]

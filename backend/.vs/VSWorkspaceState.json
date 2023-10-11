@@ -1,8 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Controllers"
+    "\\Middlewares"
   ],
-  "SelectedNode": "\\backend.csproj",
+  "SelectedNode": "\\backend.sln",
   "PreviewInSolutionExplorer": false
 }

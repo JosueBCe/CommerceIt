@@ -1,17 +1,22 @@
-using Amazon;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
-using Amazon.S3;
-using App.Middlewares;
-using App.Services;
+using Backend.Authorization;
+using Backend.Middlewares;
+using Backend.Requirement;
+using Backend.Services;
 using dotenv.net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using Amazon;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using Amazon.S3;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authorization;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Code for auth0
 builder.Host.ConfigureAppConfiguration((configBuilder) =>
 {
     configBuilder.Sources.Clear();
@@ -23,7 +28,6 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.AddServerHeader = false;
 });
-
 
 
 // Add services to the container.
@@ -44,26 +48,43 @@ builder.Services.AddCors(options =>
     });
 });
 
+IdentityModelEventSource.ShowPII = true;
+
+
+
 builder.Services.AddControllers();
 
-builder.Host.ConfigureServices((services) =>
+builder.Host.ConfigureServices((hostContext, services) =>
+{
     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
+        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
         {
-            var audience =
-                  builder.Configuration.GetValue<string>("AUTH0_AUDIENCE");
+            var audience = hostContext.Configuration.GetValue<string>("AUTH0_AUDIENCE");
 
-            options.Authority =
-                  $"https://{builder.Configuration.GetValue<string>("AUTH0_DOMAIN")}/";
+            options.Authority = $"https://{hostContext.Configuration.GetValue<string>("AUTH0_DOMAIN")}/";
             options.Audience = audience;
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateAudience = true,
-                ValidateIssuerSigningKey = true
-            };
-        })
-);
+                ValidAudience = audience,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = $"{builder.Configuration["AUTH0_DOMAIN"]}"
+            };   
+             
+             
+             
+        });
 
+    services.AddAuthorization(options =>
+    {
+        options.AddPolicy("read:admin-messages", policy =>
+        {
+            policy.RequireClaim("permissions", "read:admin-messages");
+        });
+    });
+
+    services.AddSingleton<IAuthorizationHandler, RbacHandler>();
+});
 
 // Add services to the container.
 
@@ -72,6 +93,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSwaggerGen();
+// AWS config and DynamoDb connection
 builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
 builder.Services.AddAWSService<IAmazonS3>();
 
@@ -79,8 +101,8 @@ builder.Services.AddAWSService<IAmazonDynamoDB>();
 builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
 
 
-
 var app = builder.Build();
+
 
 // Auth0 Code continues here...
 var requiredVars =
@@ -104,6 +126,7 @@ foreach (var key in requiredVars)
 app.Urls.Add(
     $"http://+:{app.Configuration.GetValue<string>("PORT")}");
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -112,9 +135,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
+app.UseErrorHandler();
+app.UseSecureHeaders();
 app.MapControllers();
+app.UseCors();
+
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.Run();

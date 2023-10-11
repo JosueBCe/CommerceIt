@@ -1,6 +1,4 @@
-using System.Threading.Tasks;
-
-namespace App.Middlewares;
+namespace Backend.Middlewares;
 
 class SecureHeadersMiddleware
 {

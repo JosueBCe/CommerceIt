@@ -1,6 +1,6 @@
-﻿using App.Models;
+﻿using Backend.Models;
 
-namespace App.Services;
+namespace Backend.Services;
 
 public interface IMessageService
 {
