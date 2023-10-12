@@ -3,23 +3,49 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Authorization;
 
-class RbacHandler : AuthorizationHandler<RbacRequirement>
+//class RbacHandler : AuthorizationHandler<RbacRequirement>
+//{
+//    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RbacRequirement requirement)
+//    {
+//        if (!context.User.HasClaim(c => c.Type == "permissions"))
+//        {
+//            return Task.CompletedTask;
+//        }
+
+//        var permission = context.User.FindFirst(c => c.Type == "permissions" && c.Value == requirement.Permission);
+
+//        if (permission == null)
+//        {
+//            return Task.CompletedTask;
+//        }
+
+//        context.Succeed(requirement);
+
+//        return Task.CompletedTask;
+//    }
+//}
+
+// debug here 
+using Microsoft.AspNetCore.Authorization;
+
+public class HasScopeHandler : AuthorizationHandler<HasScopeRequirement>
 {
-    protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, RbacRequirement requirement)
+    protected override Task HandleRequirementAsync(
+      AuthorizationHandlerContext context,
+      HasScopeRequirement requirement
+    )
     {
-        if (!context.User.HasClaim(c => c.Type == "permissions"))
-        {
+        // If user does not have the scope claim, get out of here
+        if (!context.User.HasClaim(c => c.Type == "scope" && c.Issuer == requirement.Issuer))
             return Task.CompletedTask;
-        }
 
-        var permission = context.User.FindFirst(c => c.Type == "permissions" && c.Value == requirement.Permission);
+        // Split the scopes string into an array
+        var scopes = context.User
+          .FindFirst(c => c.Type == "scope" && c.Issuer == requirement.Issuer).Value.Split(' ');
 
-        if (permission == null)
-        {
-            return Task.CompletedTask;
-        }
-
-        context.Succeed(requirement);
+        // Succeed if the scope array contains the required scope
+        if (scopes.Any(s => s == requirement.Scope))
+            context.Succeed(requirement);
 
         return Task.CompletedTask;
     }

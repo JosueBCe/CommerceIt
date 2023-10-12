@@ -14,14 +14,48 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authorization;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Logging;
+using static System.Net.WebRequestMethods;
+using Microsoft.Extensions.Options;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+.AddJwtBearer(options =>
+{
+    options.Authority = $"https://{builder.Configuration.GetValue<string>("AUTH0_DOMAIN")}/";
+    options.Audience = builder.Configuration["Auth0:Audience"];
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        NameClaimType = ClaimTypes.NameIdentifier
+    };
+});
+
+builder.Services
+  .AddAuthorization(options =>
+  {
+      options.AddPolicy(
+        "read:messages",
+        policy => policy.Requirements.Add(
+          new HasScopeRequirement("read:messages", $"https://{builder.Configuration.GetValue<string>("AUTH0_DOMAIN")}/")
+        )
+      );
+  });
+
+builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
+
+
+
+
+
 
 builder.Host.ConfigureAppConfiguration((configBuilder) =>
 {
     configBuilder.Sources.Clear();
     DotEnv.Load();
     configBuilder.AddEnvironmentVariables();
+
 });
 
 builder.WebHost.ConfigureKestrel(serverOptions =>
@@ -54,37 +88,47 @@ IdentityModelEventSource.ShowPII = true;
 
 builder.Services.AddControllers();
 
-builder.Host.ConfigureServices((hostContext, services) =>
-{
-    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-        {
-            var audience = hostContext.Configuration.GetValue<string>("AUTH0_AUDIENCE");
+//builder.Host.ConfigureServices((hostContext, services) =>
+//{
+//    services.AddMvc();
 
-            options.Authority = $"https://{hostContext.Configuration.GetValue<string>("AUTH0_DOMAIN")}/";
-            options.Audience = audience;
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateAudience = true,
-                ValidateIssuerSigningKey = true,
-                //ValidAudience = audience,
-                //ValidIssuer = $"{builder.Configuration["AUTH0_DOMAIN"]}"
-            };   
-             
-             
-             
-        });
+    
+//    services.AddAuthentication(options =>
+//    {
+//        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//    })
 
-    services.AddAuthorization(options =>
-    {
-        options.AddPolicy("read:admin-messages", policy =>
-        {
-            policy.RequireClaim("permissions", "read:admin-messages");
-        });
-    });
+//        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
+//        {
+//            var audience = hostContext.Configuration.GetValue<string>("AUTH0_AUDIENCE");
 
-    services.AddSingleton<IAuthorizationHandler, RbacHandler>();
-});
+//            options.Authority = $"https://{hostContext.Configuration.GetValue<string>("AUTH0_DOMAIN")}";
+//            options.Audience = audience;
+//            //options.MetadataAddress = "http://localhost:6060/.well-known/openid-configuration";
+//            options.TokenValidationParameters = new TokenValidationParameters
+
+//            {
+//                ValidateAudience = true,
+//                ValidateIssuerSigningKey = true,
+//                //ValidAudience = audience,
+//                //ValidIssuer = $"{builder.Configuration["AUTH0_DOMAIN"]}"
+//            };
+
+
+
+//        });
+
+//    services.AddAuthorization(options =>
+//    {
+//        options.AddPolicy("read:admin-messages", policy =>
+//        {
+//            policy.RequireClaim("permissions", "read:admin-messages");
+//        });
+//    });
+
+//    services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+//});
 
 // Add services to the container.
 
@@ -130,8 +174,13 @@ app.Urls.Add(
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
 }
 
 app.UseHttpsRedirection();
@@ -143,5 +192,6 @@ app.UseCors();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
 
 app.Run();

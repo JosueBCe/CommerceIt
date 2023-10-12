@@ -2,12 +2,23 @@
 
 namespace Backend.Requirement;
 
-class RbacRequirement : IAuthorizationRequirement
-{
-    public string Permission { get; }
+//class RbacRequirement : IAuthorizationRequirement
+//{
+//    public string Permission { get; }
 
-    public RbacRequirement(string permission)
+//    public RbacRequirement(string permission)
+//    {
+//        Permission = permission ?? throw new ArgumentNullException(nameof(permission));
+//    }
+//}
+public class HasScopeRequirement : IAuthorizationRequirement
+{
+    public string Issuer { get; }
+    public string Scope { get; }
+
+    public HasScopeRequirement(string scope, string issuer)
     {
-        Permission = permission ?? throw new ArgumentNullException(nameof(permission));
+        Scope = scope ?? throw new ArgumentNullException(nameof(scope));
+        Issuer = issuer ?? throw new ArgumentNullException(nameof(issuer));
     }
 }
