@@ -70,3 +70,13 @@ E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\Com
 E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\obj\Debug\net6.0\backend_.pdb
 E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\obj\Debug\net6.0\backend_.genruntimeconfig.cache
 E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\obj\Debug\net6.0\ref\backend_.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\Auth0.AspNetCore.Authentication.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.OpenIdConnect.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\Users\user\Documents\BYU_6_Semester\Applied_Programming\Project-Ecommerce\CommerceIt\backend_\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
