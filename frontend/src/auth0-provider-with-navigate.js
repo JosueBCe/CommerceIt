@@ -27,7 +27,7 @@ export const Auth0ProviderWithNavigate = ({ children }) => {
         redirect_uri: redirectUri,
         audience: audience,
         // audience: audience,
-        scope: scope,
+     
       }}
       onRedirectCallback={onRedirectCallback}
     >

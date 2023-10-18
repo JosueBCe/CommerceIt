@@ -1,4 +1,6 @@
 ﻿using Amazon.DynamoDBv2.DataModel;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using static backend_.Models.Users;
 
@@ -24,6 +26,7 @@ namespace backend_.Controllers
         }
 
         [HttpGet]
+        // [Authorize("read:admin-messages")]
         public async Task<IActionResult> GetAll()
         {
             var products = await _context.ScanAsync<User>(default).GetRemainingAsync();
