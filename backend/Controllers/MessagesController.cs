@@ -1,11 +1,13 @@
 using Backend.Models;
 using Backend.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers;
 
 [ApiController]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Route("api/messages")]
 public class MessagesController : ControllerBase
 {
@@ -23,14 +25,14 @@ public class MessagesController : ControllerBase
     }
 
     [HttpGet("protected")]
-    [Authorize]
+  
     public ActionResult<Message> GetProtectedMessage()
     {
         return _messageService.GetProtectedMessage();
     }
 
     [HttpGet("admin")]
-    [Authorize]
+  
     public ActionResult<Message> GetAdminMessage()
     {
         return _messageService.GetAdminMessage();

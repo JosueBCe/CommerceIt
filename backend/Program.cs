@@ -17,37 +17,12 @@ using Microsoft.IdentityModel.Logging;
 using static System.Net.WebRequestMethods;
 using Microsoft.Extensions.Options;
 using System.Security.Claims;
+using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-.AddJwtBearer(options =>
-{
-    options.Authority = $"https://{builder.Configuration.GetValue<string>("AUTH0_DOMAIN")}/";
-    options.Audience = builder.Configuration["Auth0:Audience"];
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        NameClaimType = ClaimTypes.NameIdentifier
-    };
-});
-
-builder.Services
-  .AddAuthorization(options =>
-  {
-      options.AddPolicy(
-        "read:messages",
-        policy => policy.Requirements.Add(
-          new HasScopeRequirement("read:messages", $"https://{builder.Configuration.GetValue<string>("AUTH0_DOMAIN")}/")
-        )
-      );
-  });
-
-builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-
-
-
-
-
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 
 builder.Host.ConfigureAppConfiguration((configBuilder) =>
@@ -58,6 +33,25 @@ builder.Host.ConfigureAppConfiguration((configBuilder) =>
 
 });
 
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+{
+    options.Authority = $"https://dev-x3wpn6igqgxpdpqa.us.auth0.com/";
+    options.Audience = "https://commerce-it"; //builder.Configuration["Auth0:Audience"];
+    //options.TokenValidationParameters = new TokenValidationParameters
+    //{
+    //    NameClaimType = ClaimTypes.NameIdentifier
+    //};
+});
+
+
+builder.Services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
+
+
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.AddServerHeader = false;
@@ -66,6 +60,9 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 
 // Add services to the container.
 builder.Services.AddScoped<IMessageService, MessageService>();
+
+
+
 
 builder.Services.AddCors(options =>
 {
@@ -82,70 +79,45 @@ builder.Services.AddCors(options =>
     });
 });
 
+builder.Services
+  .AddAuthorization(options =>
+  {
+      options.AddPolicy(
+        "read:messages",
+        policy => policy.Requirements.Add(
+          new HasScopeRequirement("read:messages", $"https://{builder.Configuration.GetValue<string>("AUTH0_DOMAIN")}/")
+        )
+      );
+  });
+
+
+
 IdentityModelEventSource.ShowPII = true;
 
-
-
-builder.Services.AddControllers();
-
-//builder.Host.ConfigureServices((hostContext, services) =>
-//{
-//    services.AddMvc();
-
-    
-//    services.AddAuthentication(options =>
-//    {
-//        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-//    })
-
-//        .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
-//        {
-//            var audience = hostContext.Configuration.GetValue<string>("AUTH0_AUDIENCE");
-
-//            options.Authority = $"https://{hostContext.Configuration.GetValue<string>("AUTH0_DOMAIN")}";
-//            options.Audience = audience;
-//            //options.MetadataAddress = "http://localhost:6060/.well-known/openid-configuration";
-//            options.TokenValidationParameters = new TokenValidationParameters
-
-//            {
-//                ValidateAudience = true,
-//                ValidateIssuerSigningKey = true,
-//                //ValidAudience = audience,
-//                //ValidIssuer = $"{builder.Configuration["AUTH0_DOMAIN"]}"
-//            };
-
-
-
-//        });
-
-//    services.AddAuthorization(options =>
-//    {
-//        options.AddPolicy("read:admin-messages", policy =>
-//        {
-//            policy.RequireClaim("permissions", "read:admin-messages");
-//        });
-//    });
-
-//    services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
-//});
-
 // Add services to the container.
-
+builder.Services.AddCors();
 builder.Services.AddControllers();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSwaggerGen();
-// AWS config and DynamoDb connection
-builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
-builder.Services.AddAWSService<IAmazonS3>();
 
+// AWS config and DynamoDb connection
+var awsOptions = builder.Configuration.GetAWSOptions();
+builder.Services.AddDefaultAWSOptions(awsOptions);
+builder.Services.AddAWSService<IAmazonS3>();
 builder.Services.AddAWSService<IAmazonDynamoDB>();
 builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
 
 
+builder.Services.AddResponseCompression(options => { options.Providers.Add<GzipCompressionProvider>(); options.EnableForHttps = true; options.MimeTypes = new[] { "application/json", "text/tab-separated-values", "application/javascript", "text/csv", "text" }; });
+
 var app = builder.Build();
+
+
+
+//app.Urls.Add(
+//    $"http://+:{builder.Configuration.GetValue<string>("PORT")}");
 
 
 // Auth0 Code continues here...
@@ -167,8 +139,9 @@ foreach (var key in requiredVars)
     }
 }
 
-app.Urls.Add(
-    $"http://+:{app.Configuration.GetValue<string>("PORT")}");
+string myApiVersion = "v1.0";
+string myAppName = "backend";
+string swaggerVersion = "4.1.3";
 
 
 // Configure the HTTP request pipeline.
@@ -176,14 +149,26 @@ if (app.Environment.IsDevelopment())
 {
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    string pkgUrl = "https://unpkg.com/swagger-ui-dist@";
+    app.UseSwaggerUI(c =>
+    {
+        c.HeadContent =
+            $"<link rel=\"stylesheet\" type=\"text/css\" " +
+            $"href=\"{pkgUrl}{swaggerVersion}/swagger-ui.css\" />";
+        c.InjectStylesheet($"{pkgUrl}{swaggerVersion}/swagger-ui.css", "text/css");
+        c.InjectJavascript($"{pkgUrl}{swaggerVersion}/swagger-ui-standalone-preset.js", "text/javascript");
+        c.InjectJavascript($"{pkgUrl}{swaggerVersion}/swagger-ui-bundle.js", "text/javascript");
+        c.SwaggerEndpoint($"http://localhost:7157/swagger/{myApiVersion}/swagger.json", myAppName);
+    });
+       
+        }
 else
 {
     app.UseExceptionHandler("/Home/Error");
 }
 
-app.UseHttpsRedirection();
+
+//app.UseHttpsRedirection();
 app.UseErrorHandler();
 app.UseSecureHeaders();
 app.MapControllers();
@@ -195,3 +180,5 @@ app.UseAuthorization();
 
 
 app.Run();
+
+

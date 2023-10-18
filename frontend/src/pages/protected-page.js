@@ -12,7 +12,11 @@ export const ProtectedPage = () => {
   
     const getMessage = async () => {
       try {
-        const accessToken = await getAccessTokenSilently();
+        const accessToken = await getAccessTokenSilently({
+          authorizationParams: {
+            audience: process.env.REACT_APP_AUTH0_AUDIENCE
+          }, 
+        });
         const { data, error } = await getProtectedResource(accessToken);
   
         if (!isMounted) {

@@ -9,6 +9,18 @@
 		<DockerfileContext>.</DockerfileContext>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <Optimize>False</Optimize>
+	  <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+	  <Optimize>False</Optimize>
+	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="AWSSDK.S3" Version="3.7.205.4" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -18,8 +30,9 @@
 		<PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.7.7" />
 		<PackageReference Include="dotenv.net" Version="3.1.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.5" />
-		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.2" />
-
+		<PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.0.0" />
+		<!--<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.0" />-->
+		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.0.0" />
 	</ItemGroup>
 
 </Project>

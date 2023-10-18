@@ -28,8 +28,7 @@ export const getProtectedResource = async (token) => {
     headers: {
       "content-type": "application/json",
       Authorization: `Bearer ${token}`,
-    },
-    mode: "cors",
+    }
   };
 
   const { data, error } = await callExternalApi({ config });
