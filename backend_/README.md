@@ -12,22 +12,20 @@ Tables:
 - Cart: List of the products added to the cart by the authenticated user and associated with the client id and barcode
 
 # Development Environment
-
-{Describe the tools that you used to develop the software}
-
-{Describe the programming language that you used and any libraries.}
+- .Net 6
+- C#, JS, HTML, CSS
+- RESTful API's
+- CORS and policies
+- Auth0 authentication and OpenID
+- AspNetCore Authentication JwtBearer
 
 # Useful Websites
-
-{Make a list of websites that you found helpful in this project}
 
 - [Auth0 Docs](https://auth0.com/docs/quickstart/backend/aspnet-core-webapi)
 - [Browser debugging](https://sectigostore.com/blog/how-to-fix-err-ssl-protocol-error/)
 - [Authentication Implementation (deprecated but useful for a starting point)](https://github.com/auth0-developer-hub/spa_react_javascript_hello-world/tree/main/src)
 
 # Future Work
-
-{Make a list of things that you need to fix, improve, and add in the future.}
 
 - Continue improving the UX/UI in the frontend and mobile
 - Perform authorized CRUD operations in the frontend and mobile
