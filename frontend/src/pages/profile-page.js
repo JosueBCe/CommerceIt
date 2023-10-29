@@ -1,9 +1,11 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-import { CodeSnippet } from "../components/code-snippet";
 import { PageLayout } from "../components/page-layout";
 
 export const ProfilePage = () => {
+  // In this page is displayed the user information 
+
+  // When the user is authenticated, get the profile information and display it
   const { user } = useAuth0();
 
   if (!user) {
@@ -39,10 +41,15 @@ export const ProfilePage = () => {
               </div>
             </div>
             <div className="profile__details">
-              <CodeSnippet
-                title="Decoded ID Token"
-                code={JSON.stringify(user, null, 2)}
-              />
+              <h3 className="content__title">User Information:</h3>
+              <ul>
+                {Object.entries(user).map(([key, value]) => (
+                  key !== "picture" && key !== "locale" && key !== "updated_at" && key !== "sub" && key !== "email_verified" ? 
+                  <li key={key}>
+                    <strong>{key}:</strong> {value}
+                  </li> : ""
+                ))}
+              </ul>
             </div>
           </div>
         </div>

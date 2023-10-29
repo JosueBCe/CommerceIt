@@ -15,9 +15,14 @@ namespace backend_.Models
             public string? TypeOfUser { get; set; }
 
             [DynamoDBProperty("cart_items")]
-            public string[]? CartItems { get; set; }
+            public CartItem[]? CartItems { get; set; }
 
         }
+    }
+    public class CartItem
+    {
+        public string? ProductId { get; set; }
+        public int Quantity { get; set; }
     }
 }
 

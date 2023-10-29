@@ -4,9 +4,8 @@ using Amazon.DynamoDBv2.DataModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Auth0.AspNetCore.Authentication;
 using Microsoft.IdentityModel.Tokens;
-
-
-
+using backend_.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +31,20 @@ builder.Services.AddAuthentication(options =>
     options.Authority = "https://dev-x3wpn6igqgxpdpqa.us.auth0.com/";
     options.Audience = "https://commerce-it";
 });
+
+// Adding Admin Access for accessing all the users
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("getAllUsers", policy =>
+    {
+        policy.RequireClaim("permissions", "read:users_admin");
+    });
+});
+
+//builder.Host.ConfigureServices(services =>
+//{
+//    services.AddSingleton<IAuthorizationHandler, RbacHandler>();
+//});
 
 builder.Services.AddCors(); 
 

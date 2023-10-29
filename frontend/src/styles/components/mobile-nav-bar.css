@@ -1,16 +1,18 @@
 .mobile-nav-bar__container {
   position: fixed;
   display: none;
-
   justify-content: center;
   flex-shrink: 0;
   width: 100%;
-
-  box-shadow: rgb(90 95 102) 0-1.5px 0 inset;
-
   z-index: 300;
-
   background-color: var(--black);
+}
+
+.mobile-logo-text {
+  font-size: medium;
+  align-self: center;
+  margin: 10px;
+  color: #FFECBA;
 }
 
 .mobile-nav-bar {
@@ -18,12 +20,8 @@
   display: flex;
   align-items: center;
   flex-shrink: 0;
-
-  /* responsive */
-
   height: 6.4rem;
   max-width: 1200px;
-
   padding: 0.8rem 1.6rem;
   margin: 0;
 }
@@ -32,23 +30,19 @@
   flex: 1;
   display: flex;
   align-items: center;
-
   height: 100%;
-
-  /* responsive */
-
   margin-right: 1.6rem;
 }
 
 .mobile-nav-bar__link {
   display: flex;
   align-items: center;
-
   height: 100%;
 }
 
 .mobile-nav-bar__logo {
-  height: 2.4rem;
+  height: 3rem;
+  object-fit: cover;
 }
 
 .mobile-nav-bar__menu {
@@ -75,21 +69,22 @@
   justify-content: flex-end;
   flex-direction: column;
   width: 100%;
+  margin-bottom: 0px;
 }
 
 .mobile-nav-bar__tab {
   display: flex;
   flex-direction: row;
-  /*justify-content: center;*/
-
+  justify-content: center;
   font-weight: 500;
   font-size: 2rem;
-  line-height: 16px;
-
-  padding: 3.2rem 2.4rem;
-  background-color: var(--black);
-  color: var(--white);
-  width: 100%;
+  line-height: 14px;
+  margin: 5px;
+  border-radius: 25px;
+  padding: 2rem 20px;
+  background-color: #FFEEBA;
+  color: #1E1E1E;
+  width: 95%;
   box-shadow: rgb(90 95 102) 0-1.5px 0 inset;
 }
 
@@ -98,18 +93,14 @@
 }
 
 .mobile-nav-bar__tab--active {
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-color: var(--indigo);
-
-  /* responsive */
-
+  font-weight: bold;
+  background-color: #EFC74E;
   text-decoration-thickness: 4px;
   text-underline-offset: 8px;
 }
 
 .mobile-nav-bar__tab:hover {
-  color: var(--white);
+  color: #ff7f38;
 }
 
 .mobile-nav-bar__icon {
@@ -123,6 +114,7 @@
   background-color: var(--black);
 }
 
+/* Responsiveness in mobile until tablet view */
 @media only screen and (max-width: 640px) and (hover: none) {
   .mobile-nav-bar__tab:hover {
     color: var(--white);

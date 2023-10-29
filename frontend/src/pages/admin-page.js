@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { CodeSnippet } from "../components/code-snippet";
+
 import { PageLayout } from "../components/page-layout";
-import { getAdminResource } from "../services/message.service";
+import { getAdminResource } from "../services/commerce-it-data.service";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 export const AdminPage = () => {
   const [message, setMessage] = useState("");
-
+  const { getAccessTokenSilently } = useAuth0();
   useEffect(() => {
     let isMounted = true;
-
+  
     const getMessage = async () => {
-      const { data, error } = await getAdminResource();
+      const accessToken = await getAccessTokenSilently({
+        authorizationParams: {
+          audience: process.env.REACT_APP_AUTH0_AUDIENCE
+        }, 
+      });
+      const { data, error } = await getAdminResource(accessToken);
 
       if (!isMounted) {
         return;
@@ -52,7 +59,9 @@ export const AdminPage = () => {
               </strong>
             </span>
           </p>
-          <CodeSnippet title="Admin Message" code={message} />
+        {/* Implement showing users information */}
+
+         {console.log(message)}
         </div>
       </div>
     </PageLayout>

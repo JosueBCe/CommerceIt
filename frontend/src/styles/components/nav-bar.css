@@ -1,3 +1,5 @@
+/* Responsive Table and desktop nav bar  */
+
 .nav-bar__container {
   position: fixed;
   display: flex;
@@ -29,11 +31,7 @@
 .nav-bar__brand {
   display: flex;
   align-items: center;
-
   height: 100%;
-
-  /* responsive */
-
   margin-right: 64px;
 }
 
@@ -46,6 +44,8 @@
 
 .nav-bar__logo {
   height: 3.2rem;
+  object-fit: contain;
+  border-radius: 1rem;
 }
 
 .nav-bar__tabs {

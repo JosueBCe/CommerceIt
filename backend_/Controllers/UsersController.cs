@@ -26,7 +26,7 @@ namespace backend_.Controllers
         }
 
         [HttpGet]
-        // [Authorize("read:admin-messages")]
+        [Authorize(Policy = "getAllUsers")]
         public async Task<IActionResult> GetAll()
         {
             var products = await _context.ScanAsync<User>(default).GetRemainingAsync();

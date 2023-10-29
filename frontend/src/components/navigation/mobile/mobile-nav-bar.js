@@ -15,6 +15,9 @@ const MobileMenuIcon = {
 };
 
 export const MobileNavBar = () => {
+  // Mobile Navigation Bar displaying the information and toggle logic 
+  // in mobile view 
+
   const [mobileMenuState, setMobileMenuState] = React.useState(
     MobileMenuState.CLOSED
   );

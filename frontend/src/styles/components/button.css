@@ -1,6 +1,8 @@
+/* Buttons style setup */
+
 .button {
   border: 0;
-  border-radius: 0.8rem;
+  border-radius: 2rem;
 
   font-family: var(--font-primary);
   font-weight: 600;
@@ -14,7 +16,7 @@
   /* responsive */
 
   min-width: 10rem;
-  padding: 1.6rem 1.6rem;
+  padding: 1rem 3rem;
 
   font-size: 1.6rem;
   line-height: 2.4rem;
@@ -38,8 +40,11 @@
 }
 
 .button--secondary {
-  background-color: var(--white);
+  background-color: var(--yellow);
   color: var(--black);
+  margin-left: 1rem;
+  margin-right: 1rem;
+  border-radius: 5rem 2rem 5rem 3rem;
 }
 
 .button--secondary:hover {
@@ -71,9 +76,9 @@
 .button__logout {
   min-width: 8.4rem;
 
-  border: 0.1rem solid var(--indigo);
+  border: 0.1rem solid var(--yellow);
   color: var(--white);
-  background: var(--indigo);
+  background: var(--yellow);
   width: 50%;
   font-size: 1.6rem;
 

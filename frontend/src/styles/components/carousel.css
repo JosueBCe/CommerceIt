@@ -1,0 +1,112 @@
+.carousel__title {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.carousel__image-container{
+  padding: 3rem;
+}
+
+.carousel__min-image {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 1;
+  position: relative;
+  margin-top: -100px;
+  margin-bottom: 50px;
+}
+
+.carousel__single-image {
+  height: 450px;
+  object-fit: cover;
+  border-color: green;
+  width: 100%;
+  border-radius: 30px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+
+/* Responsiveness Tablet */
+
+@media (min-width: 640px) {
+.carousel__single-image{
+  height: 400px;
+  border-radius: 2rem;
+}
+.carousel__image-container{
+  padding: 2.5rem;
+  margin-top: 10rem;
+  
+    margin-bottom: 10rem;
+}
+}
+
+
+
+/* Responsiveness Desktop */
+
+@media (min-width: 1024px) {
+  .carousel__single-image{
+    height: 450px;
+    border-radius: 4rem;
+    padding: 1rem 1.5rem;
+  }
+  .carousel__image-container{
+    padding: 4rem;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+  }
+  }
+  
+
+
+
+
+
+/* Carousel Style Setup to delete default arrows */
+.slick-next {
+  &::before {
+    color: transparent;
+  }
+}
+
+.slick-prev {
+  &::before {
+    color: transparent;
+  }
+}
+
+@media (min-width: 768px) {
+
+  .slick-next {
+    background: url('../../assets/images/right_arrow.png') center center no-repeat;
+    background-size: 15px;
+
+    &::before {
+      color: transparent;
+    }
+  }
+
+  .slick-next:hover,
+  .slick-next:focus {
+    background: url('../../assets/images/right_arrow.png') center center no-repeat;
+    background-size: 15px;
+  }
+
+  .slick-prev {
+    background: url('../../assets/images/left_arrow.png') center center no-repeat;
+    background-size: 15px;
+
+    &::before {
+      color: transparent;
+    }
+  }
+
+  .slick-prev:hover,
+  .slick-prev:focus {
+    background: url('../../assets/images/left_arrow.png') center center no-repeat;
+    background-size: 15px
+  }
+}

@@ -1,4 +1,6 @@
-/* General */
+/* General 
+Styling setup for the general tags to be used throughout the app 
+*/
 
 * {
   box-sizing: border-box;
@@ -45,8 +47,8 @@ h6 {
 h1,
 h2,
 h3 {
-  margin-top: 3.2rem;
-  margin-bottom: 1.6rem;
+  margin-top: 2rem;
+  margin-bottom: .6rem;
 }
 
 h4,
@@ -57,7 +59,7 @@ h6 {
 }
 
 h1 {
-  font-size: 3.2rem;
+  font-size: 3rem;
 }
 
 h2 {

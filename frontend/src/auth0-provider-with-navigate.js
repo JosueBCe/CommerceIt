@@ -3,12 +3,16 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export const Auth0ProviderWithNavigate = ({ children }) => {
+  // It establishes the auth0 provider that will secure the app 
+  // the audience is the backend auth0 endpoint that will be able to get 
+  // resources for being authenticated 
+
   const navigate = useNavigate();
 
+  // Auth0 setup 
   const domain = process.env.REACT_APP_AUTH0_DOMAIN;
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
   const redirectUri = process.env.REACT_APP_AUTH0_CALLBACK_URL;
-  const scope = process.env.REACT_APP_AUTH0_SCOPE
   const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
 
   const onRedirectCallback = (appState) => {
@@ -16,7 +20,6 @@ export const Auth0ProviderWithNavigate = ({ children }) => {
   };
 
   if (!(domain && clientId && redirectUri)) {
-    return null;
   }
 
   return (
@@ -30,6 +33,7 @@ export const Auth0ProviderWithNavigate = ({ children }) => {
      
       }}
       onRedirectCallback={onRedirectCallback}
+      
     >
       {children}
     </Auth0Provider>

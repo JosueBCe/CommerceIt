@@ -5,8 +5,8 @@ import { LogoutButton } from "../../buttons/logout-button";
 import { SignupButton } from "../../buttons/signup-button";
 
 export const NavBarButtons = () => {
+  // Navigation button according to the login status 
   const { isAuthenticated } = useAuth0();
-
   return (
     <div className="nav-bar__buttons">
       {!isAuthenticated && (

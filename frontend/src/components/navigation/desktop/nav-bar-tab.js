@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 export const NavBarTab = ({ path, label }) => {
+  // Single navigation tab component with jsx logic 
   return (
     <NavLink
       to={path}

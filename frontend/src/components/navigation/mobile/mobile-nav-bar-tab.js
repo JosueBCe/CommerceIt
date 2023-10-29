@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 export const MobileNavBarTab = ({ path, label, handleClick }) => {
+  // single tab navigation 
   return (
     <NavLink
       onClick={handleClick}

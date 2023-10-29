@@ -1,11 +1,63 @@
-# React/JavaScript: Basic User Authentication Code Sample
+# Overview
 
-This JavaScript code sample demonstrates **how to implement user authentication** in React applications using Auth0. This React code sample builds the Single-Page Application (SPA) using the React Router 6 library.
+This is the front-end code for a full-stack application and mobile app (Commerce It ). Includes user authentication and authorization by auth0 services. Responsive design is implemented following best practices and styling patterns. 
 
-This code sample is part of the ["Auth0 Developer Resources"](https://developer.auth0.com/resources), a place where you can explore the authentication and authorization features of the Auth0 Identity Platform.
+The purpose of this software is to consolidate my knowledge in complex React implementations, using react hooks (useReducer, useContext, useEffect, useMemo, useCallback) with database interactions by a secured api. 
 
-Visit the ["React/JavaScript + React Router 6 Code Sample: User Authentication For Basic Apps"](https://developer.auth0.com/resources/code-samples/spa/react/basic-authentication) page for instructions on how to configure and run this code sample and how to integrate it with an API server of your choice to [create a full-stack code sample](https://developer.auth0.com/resources/code-samples/full-stack/hello-world/basic-access-control/spa).
 
-## Why Use Auth0?
+[Frontend Demo Video](http://youtube.link.goes.here)
 
-Auth0 is a flexible drop-in solution to add authentication and authorization services to your applications. Your team and organization can avoid the cost, time, and risk that come with building your own solution to authenticate and authorize users. We offer tons of guidance and SDKs for you to get started and [integrate Auth0 into your stack easily](https://developer.auth0.com/resources/code-samples/full-stack).
+# Web Pages
+* Home Page
+    * Hero image 
+    * Carousel of images with thumbnail transitional images functionality 
+    * Banner and list of products  
+    * Recommended products section 
+    * Banner with call to action button  
+* Cart Page
+    * Hero image 
+    * List of items stored in the cart 
+    * Billing and shipping information 
+* Profile Page
+    * User profile's image 
+    * User profile information (stored by the auth0 service)
+* Admin Page
+    * List of users registered in the database 
+* Not found page
+    * Error message displayed 
+* Callback page (necessary for auth0 functionality)
+* Shared layout 
+    * Mobile NavBar 
+    * Desktop NavBar  
+    * Footer 
+
+# Development Environment
+* React 6 
+* React Router
+* Axios 
+* React and .NET Auth0 
+* CSS 
+* HTML  
+* NPM 
+* Restful API 
+* React Slick 
+* Eslint 
+* Prettier 
+
+# Useful Websites
+
+* [React Hooks](https://www.youtube.com/watch?v=LlvBzyy-558&ab_channel=PedroTech)
+* [UseReducer hook](https://www.youtube.com/watch?v=RZPAQV7JvNU&t=549s&ab_channel=LamaDev)
+* [Web Frontend Best Practices](https://www.youtube.com/watch?v=I7dwJxGuGYQ&ab_channel=ByteGrad)
+* [Auth0 Developer Resources](https://developer.auth0.com/resources)
+* [Slick Docs](https://react-slick.neostack.com/docs/example/responsive/)
+
+
+# Future Work
+* Implement optimizations with useMemo, useCallback and other hooks 
+* Work with the same database in mobile and frontend 
+* Implement testing with jest or another library 
+* Implement cart functionality to update products in the virtual dom and database 
+* I Statistics about users registered and visits
+
+

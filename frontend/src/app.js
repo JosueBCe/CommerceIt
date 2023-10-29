@@ -8,10 +8,13 @@ import { CallbackPage } from "./pages/callback-page";
 import { HomePage } from "./pages/home-page";
 import { NotFoundPage } from "./pages/not-found-page";
 import { ProfilePage } from "./pages/profile-page";
-import { ProtectedPage } from "./pages/protected-page";
-import { PublicPage } from "./pages/public-page";
+import { Cart } from "./pages/cart";
+
 
 export const App = () => {
+  // It makes the initial setup of the routes 
+  // and authentication guards 
+
   const { isLoading } = useAuth0();
 
   if (isLoading) {
@@ -29,10 +32,9 @@ export const App = () => {
         path="/profile"
         element={<AuthenticationGuard component={ProfilePage} />}
       />
-      <Route path="/public" element={<PublicPage />} />
       <Route
         path="/protected"
-        element={<AuthenticationGuard component={ProtectedPage} />}
+        element={<AuthenticationGuard component={Cart} />}
       />
       <Route
         path="/admin"

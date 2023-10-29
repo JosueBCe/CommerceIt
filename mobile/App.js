@@ -5,6 +5,8 @@ import Navigation from './src/navigation/Navigation';
 import { ProductsProvider } from './src/screens/ProductsContext';
 import { toastConfig } from './src/utils/ToastConfig';
 import Toast from 'react-native-toast-message';
+
+
 export default function App() {
 
   return (

@@ -1,5 +1,10 @@
 import axios from "axios";
 
+// Call to the api endpoints of the commerce-it api 
+// secured using auth0 
+// the access token is specified in the CRUD operations to 
+// have access to the protected endpoints
+
 export const callExternalApi = async (options) => {
   try {
     const response = await axios(options.config);

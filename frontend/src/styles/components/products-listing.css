@@ -1,0 +1,201 @@
+/* Product listing responsive design setup  */
+.products-listing {
+  padding: 3.2rem;
+}
+
+.products-listing__title {
+  color: var(--white);
+  font-weight: 600;
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 4.8rem;
+  font-size: 3.2rem;
+  line-height: 3.2rem;
+}
+
+.products-listing__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+
+  column-gap: 0;
+
+}
+
+.grid-image-banner {
+  background-image: url("../../assets/images/living_room.png");
+  object-fit: cover;
+  background-size: cover;
+  background-position: center center;
+  min-height: 459px;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding-left: 2rem;
+}
+
+
+.grid-image-banner h1 { 
+  margin-left: 1rem;
+}
+.list-item {
+  display: block;
+  border: solid 1px var(--aluminium);
+  background-color: var(--white);
+  color: var(--black);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out 0s;
+  padding: 4.8rem 2.5rem;
+}
+
+.list-item:hover {
+  transform: scale(1.03);
+}
+
+.list-item__headline {
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+  color: var(--black);
+  font-weight: 600;
+  letter-spacing: -0.05rem;
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+}
+
+
+
+.list-item:hover .list-item__headline {
+  text-decoration: underline solid 2px var(--black);
+  text-underline-offset: 2px;
+
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.list-item__description {
+  margin: 0;
+  color: rgb(36, 36, 36);
+  font-weight: 500;
+  opacity: 0.7;
+  font-size: 1.2rem;
+  line-height: 2.4rem;
+}
+
+@media only screen and (max-width: 900px) {
+  .list-item {
+    padding: 3rem 4rem;
+    border-radius: 0;
+  }
+
+  .list-item__headline {
+    font-size: 1.5rem;
+    line-height: 2.4rem;
+  }
+
+  .list-item__icon {
+    height: 7.5rem;
+    width: 6rem;
+    object-fit: cover;
+    margin-left: 20px;
+    border-radius: .5rem;
+  }
+
+  .list-item__description {
+    font-size: 1.2rem;
+    line-height: 2.2rem;
+  }
+}
+
+/* Responsiveness in mobile view */
+@media only screen and (max-width: 480px) {
+  .products-listing {
+    padding: 1.5rem;
+  }
+
+  .products-listing__title {
+    font-size: 2rem;
+    line-height: 2.8rem;
+    margin-bottom: 2.4rem;
+  }
+
+  .products-listing__grid {
+    grid-template-columns: 1fr 1fr;
+    row-gap: 0;
+    border: solid 1px gray;
+
+  }
+
+  .list-item {
+    padding: 1.2rem 1.1rem;
+    border: solid 1px gray;
+  }
+
+  .list-item__headline {
+    font-size: 1.2rem;
+    line-height: 2.4rem;
+    margin: .3rem;
+  }
+
+  .list-item__description {
+    font-size: 1.1rem;
+    line-height: 2.2rem;
+  }
+
+}
+/* Responsiveness in tablet view */
+@media only screen and (min-width: 640px) {
+  .products-listing {
+    display: flex;
+    padding: 0;
+    
+  }
+
+  .products-listing__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: solid 1px var(--aluminium);
+  }
+
+  .list-item {
+    padding: 1rem;
+    justify-content: center;
+  }
+  .grid-image-banner {
+    padding: 3rem 5rem;
+  }
+  .list-item__icon {
+    width: 7rem;
+    height: 7rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    
+  }
+  .list-item__headline{
+    font-size: 14px;
+    margin-left: 0rem;
+  }
+}
+/* Responsiveness in desktop view */
+@media only screen and (min-width: 1024px) {
+  .list-item {
+    display: flex;
+    flex-direction: column;
+    padding-left: 2rem;
+    width: 240px;
+    align-items: stretch;
+    justify-content: center;
+    padding-top: 0;
+  }
+  
+  .list-item__icon { 
+   width: 7rem;
+    height: 10rem;
+  
+  }
+  .list-item__headline{
+   
+    margin-bottom: -2rem;
+  }
+}

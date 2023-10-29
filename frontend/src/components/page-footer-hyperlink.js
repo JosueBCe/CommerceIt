@@ -1,6 +1,7 @@
 import React from "react";
 
 export const PageFooterHyperlink = ({ children, path }) => {
+  // Custom Link behavior 
   return (
     <a
       className="page-footer__hyperlink"

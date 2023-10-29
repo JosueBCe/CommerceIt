@@ -5,6 +5,8 @@ import { MobileNavBar } from "../components/navigation/mobile/mobile-nav-bar";
 import { PageLayout } from "../components/page-layout";
 
 export const CallbackPage = () => {
+  // Necessary page for auth0 purposes, it displays the error if there's one
+  // in the login process
   const { error } = useAuth0();
 
   if (error) {

@@ -2,8 +2,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 
 export const LogoutButton = () => {
+  // Logout button with auth0 logic
   const { logout } = useAuth0();
-
   const handleLogout = () => {
     logout({
       logoutParams: {
