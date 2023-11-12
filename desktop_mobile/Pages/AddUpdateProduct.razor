@@ -1,0 +1,200 @@
+﻿@page "/updateproduct/{ProductId:int}"
+@page "/addproduct"
+@using desktop_mobile.Model;
+@using desktop_mobile.Services
+@inject IProductService ProductService;
+@inject NavigationManager NavManager;
+
+@* Add or Update a product 
+This page is intended to show the products characteristics and offer
+to the admin user the ability to change their properties
+*@
+
+<div class="row w-75 align-items-center mx-auto my-2 ">
+    <img src="@thumbnail" alt="@title" />
+</div>
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-6">
+
+            <h3 class="text-center">
+                🛍️
+                @if (ProductId != 0)
+                {
+                    <span>Update </span>
+                }
+                else
+                {
+                    <span>Create </span>
+                }
+               Your Product 📷
+            </h3>
+            <div class="form-group">
+                <label for="productId">ID</label>
+                <input @bind="ProductId" id="productId" class="form-control" placeholder="ID">
+            </div>
+            <div class="mt-2 form-group">
+                <label for="barcode">Barcode</label>
+                <input @bind="Barcode" id="barcode" class="form-control" placeholder="Barcode">
+            </div>
+
+            <div class="mt-2 form-group">
+                <label for="title">Title</label>
+                <input @bind="title" id="title" class="form-control" placeholder="Title">
+            </div>
+
+            <div class="mt-2 form-group">
+                <label for="description">Description</label>
+                <input @bind="description" id="description" class="form-control" placeholder="Description">
+            </div>
+
+            <div class="mt-2 form-group">
+                <label for="price">Price</label>
+                <input @bind="price" type="number" step="0.01" id="price" class="form-control" placeholder="Price">
+            </div>
+
+            <div class="mt-2 form-group">
+                <label for="discount">Discount</label>
+                <input @bind="discount" type="number" step="0.01" id="discount" class="form-control" placeholder="Discount">
+            </div>
+
+        </div>
+        <div class="col-md-6 mb-1 my-md-4">
+            <div class="mt-2 form-group">
+                <label for="rating">Rating</label>
+                <input @bind="rating" type="number" step="0.01" id="rating" class="form-control" placeholder="Rating">
+            </div>
+
+            <div class="mt-2 form-group">
+                <label for="stock">Stock</label>
+                <input @bind="stock" type="number" id="stock" class="form-control" placeholder="Stock">
+            </div>
+
+            <div class="mt-2 form-group">
+                <label for="brand">Brand</label>
+                <input @bind="brand" id="brand" class="form-control" placeholder="Brand">
+            </div>
+
+            <div class="mt-2 form-group">
+                <label for="category">Category</label>
+                <input @bind="category" id="category" class="form-control" placeholder="Category">
+            </div>
+
+            <div class="mt-2 form-group">
+                <label for="thumbnail">Thumbnail</label>
+                <input @bind="thumbnail" id="thumbnail" class="form-control" placeholder="Thumbnail">
+            </div>
+
+
+            <div class="mt-2 form-group">
+                <label for="images">Images</label>
+                <input value="@string.Join(',', images)" @oninput="UpdateImages" id="images" class="form-control" placeholder="Images">
+            </div>
+            
+        </div>
+        <div  class="row text-center justify-content-center col-lg-3">
+        <button @onclick="AddUpdateProductDetails" type="submit" class="mt-2 btn btn-dark w-50">Submit</button>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+    public string Barcode { get; set; }
+
+    private string title;
+    private string description;
+    private decimal price;
+    private decimal discount;
+    private decimal? rating;
+    private decimal? stock;
+    private string brand;
+    private string category;
+    private string thumbnail;
+    private List<string> images = new List<string>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (ProductId > 0)
+        {
+            var existingProduct = await ProductService.GetProductById(ProductId.ToString());
+
+            if (existingProduct != null)
+            {
+                // Assign the values directly to the properties
+                title = existingProduct.Title;
+                description = existingProduct.Description;
+                price = existingProduct.Price;
+                discount = existingProduct.Discount;
+                rating = existingProduct.Rating;
+                stock = existingProduct.Stock;
+                brand = existingProduct.Brand;
+                category = existingProduct.Category;
+                thumbnail = existingProduct.Thumbnail;
+                images = existingProduct.Images;
+                Barcode = "general";
+
+            }
+        }
+    }
+
+    private async Task AddUpdateProductDetails()
+    {
+        var addUpdateRequest = new AddUpdateProductRequest()
+            {
+                Id = ProductId.ToString(),
+                Barcode = "general",
+                Title = title,
+                Description = description,
+                Price = price,
+                Discount = discount,
+                Rating = rating,
+                Stock = stock,
+                Brand = brand,
+                Category = category,
+                Thumbnail = thumbnail,
+                Images = images
+            };
+
+        if (ProductId > 0)
+        {
+            var response = await ProductService.UpdateProduct(addUpdateRequest);
+            if (response)
+            {
+                await App.Current.MainPage.DisplayAlert("Record Updated", "Record Updated Successfully", "OK");
+                NavManager.NavigateTo("/");
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Double Check", "Record Wasn't Updated ", "OK");
+            }
+        }
+        else
+        {
+            var response = await ProductService.AddProduct(addUpdateRequest);
+            if (response)
+            {
+                title = description = brand = category = thumbnail = string.Empty;
+                this.StateHasChanged();
+
+                await App.Current.MainPage.DisplayAlert("Record Added", "Record Added Successfully", "OK");
+                NavManager.NavigateTo("/");
+            }
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Double Check", "Record Wasn't Added", "OK");
+            }
+        }
+    }
+
+    private void UpdateImages(ChangeEventArgs e)
+    {
+        var inputValue = e.Value.ToString();
+        images = inputValue.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+    }
+}

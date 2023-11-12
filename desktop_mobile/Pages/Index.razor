@@ -1,0 +1,109 @@
+﻿@page "/"
+
+@using desktop_mobile.Services
+@using desktop_mobile.Model
+@inject IProductService ProductService;
+@inject NavigationManager NavManager;
+
+@* Admin Products page 
+This page is intended to show the list of products and perform or offert the option to 
+add, update or delete a product
+*@
+
+<h1 class="text-center text-lg-start">Commerce It 🛒</h1>
+
+@if (_productList == null)
+{
+    <p>Loading....</p>
+}
+else
+{
+    <div class="row justify-content-center justify-content-lg-start">
+        <div class="col-10 col-md-8 col-lg-6 m-3 justify-content-center">
+            <div class="justify-content-center col-md-9 justify-content-center">
+                <img src="~/../assets/hero.jpg" class="w-100 h-50 rounded-2" style="object-fit:cover;">
+
+            </div>
+            
+        </div>
+        <div class="nav-item px-3 mb-5 col-lg-4 
+align-items-center align-content-center  text-center">
+            <a class="btn btn-dark" href="addproduct">
+                <span aria-hidden="true">🛍️ Add Product 📦</span>
+            </a>
+        </div>
+    </div>
+
+
+
+
+    <div class="container mx-0 my-4 p-0 align-items-center" style="cursor: pointer;">
+        <div class="row px-lg-0">
+            @foreach (var product in _productList)
+            {
+                <div class="col-12 col-md-6 col-lg-4 px-lg-0" @onclick="@(()=> DisplayOption(product))">
+                    <div class="row mx-0 my-3 flex-lg-column align-content-lg-center ">
+                        <div class="col-6 mb-md-2">
+                            <img src="@product.Thumbnail" alt="@product.Title" class="w-100 rounded-3 h-100 " style="object-fit: cover; min-height: 140px">
+                        </div>
+                        <div class="col-6 ">
+                            <h5 class="mb-1">@product.Title</h5>
+                            <h6 class="text-muted">@product.Category</h6>
+                            <p class="text-muted mb-2">@product.?Description.Substring(0, 50)...</p>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+}
+
+@code {
+
+    List<ProductModel> _productList;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _productList = await ProductService.GetAllProducts();
+    }
+
+    private async void DisplayOption(ProductModel ProductDetail)
+    {
+        var res = await App.Current.MainPage.DisplayActionSheet("Select Option", "OK", null, "Update Product", "Delete Product");
+
+        if (res == "Update Product")
+        {
+
+            string url = $"/updateproduct/{ProductDetail.Id}";
+
+            // Use the NavigationManager to navigate to the URL
+            NavManager.NavigateTo(url);
+        }
+
+
+
+
+        @code {
+
+        private void NavigatetoMain()
+        {
+            App.Current.MainPage.Navigation.PushModalAsync(new MainPage());
+        }
+    }
+    else if (res == "Delete Product")
+    {
+        var delRequest = await ProductService.DeleteProduct(new AddUpdateProductRequest
+                {
+                    Id = ProductDetail.Id,
+                    Barcode = ProductDetail.Barcode
+                });
+        if (delRequest == true)
+        {
+            await OnInitializedAsync();
+            this.StateHasChanged();
+        }
+    }
+
+        }
+}

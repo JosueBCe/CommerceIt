@@ -1,0 +1,109 @@
+﻿@page "/cart"
+@using desktop_mobile.Services
+@using desktop_mobile.Model
+@using System.Diagnostics
+@inject ICartService CartService;
+@inject IProductService ProductService;
+
+@* This page is intended to offer the admin user the ability to calculate 
+    and see the expenses that his/her customers are doing for adding new items to the cart . 
+*@
+
+<h1>Commerce It 🛒</h1>
+
+@if (_cartList == null)
+{
+    <p>Loading....</p>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Products</th>
+                    <th>Type Of User</th>
+                    <th>User ID</th>
+                    <th>Total Cost</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in _cartList)
+                {
+                    <tr>
+                        <td>
+                            @if (product.CartItems != null)
+                            {
+                                @foreach (var cartItem in product.CartItems)
+                                {
+                                    <div>
+                                        ID: @cartItem.ProductId
+                                        Quant.: @cartItem.Quantity
+                                    </div>
+                                }
+                            }
+                        </td>
+                        <td>@product.TypeOfUser</td>
+                        <td>@product.Id</td>
+               
+                            @if (product.CartItems != null)
+                            {
+                            <td>@string.Format("{0:C}", totalCost(product.CartItems))</td>
+                            }
+                     
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+}
+
+@code {
+    List<CartModel> _cartList;
+    List<ProductModel> _products;
+
+
+    protected override async Task OnInitializedAsync()
+
+    {
+        _products = await ProductService.GetAllProducts();
+        _cartList = await CartService.GetAllProducts();
+
+        Debug.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(_cartList));
+        foreach (var product in _cartList)
+        {
+
+
+            if (product.CartItems != null)
+            {
+                foreach (var cartItem in product.CartItems)
+                {
+                    Debug.WriteLine($"Cart Item - Product ID: {cartItem.ProductId}, Quantity: {cartItem.Quantity}");
+                }
+            }
+            else
+            {
+                Debug.WriteLine("No cart items for this product.");
+            }
+        }
+   
+
+
+    }
+    public decimal totalCost(List<CartItemModel> cartItems)
+    {
+        decimal total = 0;
+        foreach (var cartItem in cartItems)
+        {
+            var matchingProduct = _products.FirstOrDefault(p => p.Id == cartItem.ProductId);
+            if (matchingProduct != null)
+            {
+                decimal itemCost = cartItem.Quantity * matchingProduct.Price;
+                total += itemCost;
+            }
+        }
+
+        return total;
+    }
+}

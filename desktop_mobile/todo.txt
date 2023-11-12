@@ -1,0 +1,20 @@
+﻿(THIS  IS  A  DESKTOP ADMIN APP FOR COMMMERCE IT)
+- get the cart products and make crud operations : 
+	- add more products
+	- perform cart calculations 
+	- https://www.youtube.com/watch?v=mNM5Z_pHGqM&ab_channel=ProgrammingWithPragnesh
+	https://github.com/mistrypragnesh40/WebAPIIntegreationInBlazorApp/blob/master/Pages/AddUpdateStudent.razor
+
+- product style with different blazor maui layouts : 
+	- list of products responsive
+	- improve style of adding new product 
+	- cart style 
+	- Android functionality
+	# At night personal wellness course 
+	- start working in react native project and improve frontend (hooks)
+
+- overall style 
+- start documenting and learning the overall structure 
+- testing 
+- next sprint  incorporate docker or used service like containter 
+
