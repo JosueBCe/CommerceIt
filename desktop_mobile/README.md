@@ -1,7 +1,7 @@
 ﻿# Overview
 
-This is a multi-platform project developed with .NET MAUI Blazor technology. This project is intended to help me understand how multiplatforms apps work and how their components interact between each other 
-This is an important milestone in my programming journey being the past steps to learn the full stack development cycle, mobile app development and now this new step. 
+This is a multi-platform project developed with .NET MAUI Blazor technology. This project is intended to help me understand how multiplatform apps work and how their components interact with each other 
+This is an important milestone in my programming journey being the past steps to learn the full stack development cycle, mobile app development, and now this new step. 
 
 This software provides 3 pages which allow to perform CRUD operations with a secured api and a DynamoDB database following the RESTful pattern and best practices 
 
@@ -16,7 +16,7 @@ This software provides 3 pages which allow to perform CRUD operations with a sec
 - HTML 
 - CSS 
 - C# 
-- Boostrap 
+- Bootstrap 
 - DynamoDB
 
 # App Structure: 
