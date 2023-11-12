@@ -20,31 +20,32 @@ This software provides 3 pages which allow to perform CRUD operations with a sec
 - DynamoDB
 
 # App Structure: 
-MauiBlazor/
-├── MauiBlazor/
-│   ├── App.xaml
-│   ├── App.xaml.cs
-│   ├── MainPage.xaml
-│   ├── MainPage.xaml.cs
-│   ├── Program.cs
-│   ├── Startup.cs
-│   ├── wwwroot/
-│   │   ├── css/
-│   │   ├── js/
-│   │   ├── index.html
-│   │   └── web.config
-│   └── Pages/
-│       ├── Counter.razor
-│       ├── FetchData.razor
-│       ├── Index.razor
-│       └── Shared/
-│           ├── MainLayout.razor
-│           └── NavMenu.razor
-├── MauiBlazor.Android/
-├── MauiBlazor.iOS/
-├── MauiBlazor.macOS/
-├── MauiBlazor.Windows/
-└── MauiBlazor.sln
+MauiBlazor
+- MauiBlazor
+  - App.xaml
+  - App.xaml.cs
+  - MainPage.xaml
+  - MainPage.xaml.cs
+  - Program.cs
+  - Startup.cs
+  - wwwroot
+    - css
+    - js
+    - index.html
+    - web.config
+  - Pages
+    - Counter.razor
+    - FetchData.razor
+    - Index.razor
+  - Shared
+    - MainLayout.razor
+    - NavMenu.razor
+  - MauiBlazor.Android
+  - MauiBlazor.iOS
+  - MauiBlazor.macOS
+  - MauiBlazor.Windows
+  - MauiBlazor.sln
+
 
 
 # Useful Websites
