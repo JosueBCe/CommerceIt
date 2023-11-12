@@ -49,7 +49,7 @@ This software provides 3 pages which allow to perform CRUD operations with a sec
 
 # Useful Websites
 
-- [Youtube Tutorial]https://www.youtube.com/watch?v=mNM5Z_pHGqM&ab_channel=ProgrammingWithPragnesh)
+- [Youtube Tutorial](https://www.youtube.com/watch?v=mNM5Z_pHGqM&ab_channel=ProgrammingWithPragnesh)
 - [Android Debugging](https://stackoverflow.com/questions/71650449/error-launching-android-emulator-in-visual-studio-2022)
 - [Android Debugging 2](https://stackoverflow.com/questions/55173004/targeting-sdk-android-q-results-in-failed-to-finalize-session-install-failed-i/55186445#55186445)
 - [Android Debugging 3](https://learn.microsoft.com/en-us/xamarin/android/get-started/installation/android-emulator/troubleshooting?pivots=windows)
