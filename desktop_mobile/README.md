@@ -20,7 +20,6 @@ This software provides 3 pages which allow to perform CRUD operations with a sec
 - DynamoDB
 
 # App Structure: 
-MauiBlazor
 - MauiBlazor
   - App.xaml
   - App.xaml.cs
